@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <algorithm>
+
+typedef struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+} Node;
+Node* createNode(int x) {
+    Node* p = (Node*)malloc(sizeof(Node));
+    p->data = x;
+    p->left = p->right = NULL;
+    return p;
+}
+Node* createTree1() {
+    Node* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    return root;
+}
+
+Node* createTree2() {
+    Node* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    return root;
+}
+int isSameTree(Node* t1, Node* t2) {
+    if (t1 == NULL && t2 == NULL)
+        return 1;
+
+    if (t1 == NULL || t2 == NULL)
+        return 0;
+
+    if (t1->data != t2->data)
+        return 0;
+
+    return isSameTree(t1->left, t2->left) &&
+           isSameTree(t1->right, t2->right);
+}
+int main() {
+    Node* T1 = createTree1();
+    Node* T2 = createTree2();
+
+    if (isSameTree(T1, T2))
+        printf("Hai cay giong nhau\n");
+    else
+        printf("Hai cay KHONG giong nhau\n");
+
+    return 0;
+}
